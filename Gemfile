@@ -9,6 +9,8 @@ gem 'pg', '0.17.1'
 gem 'logstasher', '0.5.3'
 gem 'airbrake', '4.0.0'
 
+gem 'unicorn', '4.8.3'
+
 gem 'spring', :group => :development
 
 group :development, :test do
