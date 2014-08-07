@@ -7,6 +7,7 @@ gem 'rails-api', '0.2.1'
 gem 'pg', '0.17.1'
 
 gem 'logstasher', '0.5.3'
+gem 'airbrake', '4.0.0'
 
 gem 'spring', :group => :development
 
