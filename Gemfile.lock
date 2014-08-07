@@ -86,7 +86,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  pg
+  pg (= 0.17.1)
   rails (= 4.1.4)
-  rails-api
+  rails-api (= 0.2.1)
   spring

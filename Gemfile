@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.4'
 
-gem 'rails-api'
+gem 'rails-api', '0.2.1'
 
-gem 'pg'
+gem 'pg', '0.17.1'
 
 gem 'spring', :group => :development
