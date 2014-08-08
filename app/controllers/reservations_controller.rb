@@ -3,8 +3,14 @@ class ReservationsController < ApplicationController
 
   def update
     @reservation = Reservation.find_or_initialize_by(:path => params[:reserved_path])
-    status_to_use = @reservation.new_record? ? :created : :ok
-    @reservation.update_attributes(@request_data) or status_to_use = :unprocessable_entity
+
+    if @reservation.can_be_claimed_by?(@request_data["publishing_app"])
+      status_to_use = @reservation.new_record? ? :created : :ok
+      @reservation.update_attributes(@request_data) or status_to_use = :unprocessable_entity
+    else
+      @reservation.errors.add(:base, "is already reserved by the '#{@reservation.publishing_app}' app")
+      status_to_use = :conflict
+    end
 
     render :json => @reservation, :status => status_to_use
   end

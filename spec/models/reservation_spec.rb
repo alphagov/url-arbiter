@@ -45,6 +45,31 @@ RSpec.describe Reservation, :type => :model do
     end
   end
 
+  describe "claimable_by?" do
+    before :each do
+      @reservation = build(:reservation)
+    end
+
+    it "returns true for a new record" do
+      expect(@reservation.can_be_claimed_by?(@reservation.publishing_app)).to eq(true)
+      expect(@reservation.can_be_claimed_by?("foo")).to eq(true)
+    end
+
+    context "for an existing record" do
+      before :each do
+        @reservation.save!
+      end
+
+      it "returns true if the publishing_app matches" do
+        expect(@reservation.can_be_claimed_by?(@reservation.publishing_app)).to eq(true)
+      end
+
+      it "returns false if the publishign app is different" do
+        expect(@reservation.can_be_claimed_by?("foo")).to eq(false)
+      end
+    end
+  end
+
   describe "json representation" do
     before :each do
       @reservation = build(:reservation)
