@@ -44,4 +44,27 @@ RSpec.describe Reservation, :type => :model do
       end
     end
   end
+
+  describe "json representation" do
+    before :each do
+      @reservation = build(:reservation)
+    end
+
+    it "does not include the internal id" do
+      expect(@reservation.as_json).not_to have_key("id")
+    end
+
+    it "includes details of any errors" do
+      @reservation.publishing_app = ""
+      @reservation.valid?
+
+      json_hash = @reservation.as_json
+      expect(json_hash).to have_key("errors")
+      expect(json_hash["errors"]).to eq({"publishing_app" => ["can't be blank"]})
+    end
+
+    it "does not include the 'errors' key if there are no errors" do
+      expect(@reservation.as_json).not_to have_key("errors")
+    end
+  end
 end
