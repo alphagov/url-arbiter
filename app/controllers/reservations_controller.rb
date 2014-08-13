@@ -1,6 +1,11 @@
 class ReservationsController < ApplicationController
   before_filter :parse_json_request, :only => [:update]
 
+  def show
+    @reservation = Reservation.find_by_path!(params[:reserved_path])
+    render :json => @reservation
+  end
+
   def update
     @reservation = Reservation.find_or_initialize_by(:path => params[:reserved_path])
 
