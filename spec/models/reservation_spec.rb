@@ -45,6 +45,14 @@ RSpec.describe Reservation, :type => :model do
     end
   end
 
+  it "supports paths longer than 255 chars" do
+    reservation = build(:reservation)
+    reservation.path = "/" + 'x' * 300
+    expect {
+      reservation.save!
+    }.not_to raise_error
+  end
+
   describe "claimable_by?" do
     before :each do
       @reservation = build(:reservation)
