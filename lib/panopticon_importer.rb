@@ -36,7 +36,7 @@ class PanopticonImporter
   end
 
   def get_page(page)
-    response = RestClient.get(artefacts_url + "?page=#{page}")
+    response = RestClient.get(artefacts_url + "?minimal=1&page=#{page}")
     return JSON.parse(response.body)
   end
 
