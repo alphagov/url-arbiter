@@ -13,7 +13,7 @@ class ReservationsController < ApplicationController
       status_to_use = @reservation.new_record? ? :created : :ok
       @reservation.update_attributes(@request_data) or status_to_use = :unprocessable_entity
     else
-      @reservation.errors.add(:base, "is already reserved by the '#{@reservation.publishing_app}' app")
+      @reservation.errors.add(:path, "is already reserved by the '#{@reservation.publishing_app}' app")
       status_to_use = :conflict
     end
 

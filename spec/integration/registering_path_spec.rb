@@ -44,7 +44,7 @@ describe "Registering a path", :type => :request do
 
       expect(response.status).to eq(409)
       data = JSON.parse(response.body)
-      expect(data["errors"]).to eq({"base" => ["is already reserved by the 'publisher' app"]})
+      expect(data["errors"]).to eq({"path" => ["is already reserved by the 'publisher' app"]})
 
       @reservation.reload
       expect(@reservation.publishing_app).to eq("publisher")
