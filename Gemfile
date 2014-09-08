@@ -6,6 +6,10 @@ gem 'rails-api', '0.2.1'
 
 gem 'pg', '0.17.1'
 
+# Only needed for PanopticonImporter
+gem 'rest-client', '~> 1.7'
+gem 'plek', '~> 1.8'
+
 gem 'logstasher', '0.5.3'
 gem 'airbrake', '4.0.0'
 
