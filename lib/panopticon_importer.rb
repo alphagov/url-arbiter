@@ -2,6 +2,9 @@ require 'rest_client'
 require 'plek'
 
 class PanopticonImporter
+  def initialize(bearer_token)
+    @bearer_token = bearer_token
+  end
 
   def import
     puts "Importing artefacts from panopticon"
@@ -36,7 +39,11 @@ class PanopticonImporter
   end
 
   def get_page(page)
-    response = RestClient.get(artefacts_url + "?minimal=1&page=#{page}")
+    headers = {
+      "Accept" => "application/json",
+      "Authorization" => "Bearer #{@bearer_token}"
+    }
+    response = RestClient.get(artefacts_url + "?minimal=1&page=#{page}", headers)
     return JSON.parse(response.body)
   end
 
