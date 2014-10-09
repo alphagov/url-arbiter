@@ -35,12 +35,16 @@ curl http://url-arbiter-api.example.com/paths/foo/bar -X PUT \
     -d '{"publishing_app": "foo_publisher"}'
 ```
 
-This will return a 200 or 201 status on success along with JSON details as above.
+This will return a [200](http://tools.ietf.org/html/rfc7231#section-6.3.1)
+or [201](http://tools.ietf.org/html/rfc7231#section-6.3.2)
+status on success along with JSON details as above.
 
-A 409 status will be returned if the path has already been reserved by a
-different publishing application.
+A [409](http://tools.ietf.org/html/rfc7231#section-6.5.8)
+status will be returned if the path has already been reserved by a different
+publishing application.
 
-A 422 status will be returned for any validation errors.
+A [422](https://tools.ietf.org/html/rfc4918#section-11.2) status will be
+returned for any validation errors.
 
 These errors will also include a JSON response including an "errors" field with
 any error messages.
