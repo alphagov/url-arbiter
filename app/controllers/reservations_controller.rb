@@ -2,12 +2,12 @@ class ReservationsController < ApplicationController
   before_filter :parse_json_request, :only => [:update]
 
   def show
-    @reservation = Reservation.find_by_path!(params[:reserved_path])
+    @reservation = Reservation.find_by_path!(encoded_reserved_path)
     render :json => @reservation
   end
 
   def update
-    @reservation = Reservation.find_or_initialize_by(:path => params[:reserved_path])
+    @reservation = Reservation.find_or_initialize_by(:path => encoded_reserved_path)
 
     if @reservation.can_be_claimed_by?(@request_data["publishing_app"])
       status_to_use = @reservation.new_record? ? :created : :ok
@@ -26,5 +26,10 @@ class ReservationsController < ApplicationController
     @request_data = JSON.parse(request.body.read)
   rescue JSON::ParserError
     head :bad_request
+  end
+
+  # Rails unescapes %encoded chars for us, so we need to re-encode them to ensure consistency.
+  def encoded_reserved_path
+    URI.escape(params[:reserved_path])
   end
 end

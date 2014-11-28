@@ -26,6 +26,20 @@ describe "Registering a path", :type => :request do
 
       expect(Reservation.find_by_path("/foo/bar")).to be_nil
     end
+
+    it "should handle non-ascii paths" do
+      # URI encoded 'foo-€45-bar'
+      put_json "/paths/foo-%E2%82%AC45-bar", {"publishing_app" => "publisher"}
+
+      expect(response.status).to eq(201)
+      data = JSON.parse(response.body)
+      expect(data["path"]).to eq("/foo-%E2%82%AC45-bar")
+      expect(data["publishing_app"]).to eq("publisher")
+
+      reservation = Reservation.find_by_path("/foo-%E2%82%AC45-bar")
+      expect(reservation).to be
+      expect(reservation.publishing_app).to eq("publisher")
+    end
   end
 
   describe "for a path that has previously been registerd" do
