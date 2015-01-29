@@ -15,8 +15,6 @@ gem 'airbrake', '4.0.0'
 
 gem 'unicorn', '4.8.3'
 
-gem 'spring', :group => :development
-
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails', '~> 4.4.1'
