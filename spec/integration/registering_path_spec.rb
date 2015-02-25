@@ -69,5 +69,7 @@ describe "Registering a path", :type => :request do
     put "/paths/foo", "I'm not json", "CONTENT_TYPE" => "application/json"
 
     expect(response.status).to eq(400)
+    data = JSON.parse(response.body)
+    expect(data["errors"]).to eq({ "request_body" => ["invalid JSON: 757: unexpected token at 'I'm not json'"] })
   end
 end
