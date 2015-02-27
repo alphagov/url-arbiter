@@ -24,8 +24,13 @@ class ReservationsController < ApplicationController
 
   def parse_json_request
     @request_data = JSON.parse(request.body.read)
-  rescue JSON::ParserError
-    head :bad_request
+  rescue JSON::ParserError => e
+    response_body = {
+      errors: {
+        request_body: ["invalid JSON: #{e.message}"]
+      }
+    }
+    render json: response_body, status: :bad_request
   end
 
   # Rails unescapes %encoded chars for us, so we need to re-encode them to ensure consistency.
