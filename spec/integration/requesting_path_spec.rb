@@ -16,7 +16,6 @@ describe "Requesting details of a path", :type => :request do
   end
 
   it "returns 404 for a path that has not been reserved" do
-
     get "/paths/non-existent"
     expect(response.status).to eq(404)
   end
