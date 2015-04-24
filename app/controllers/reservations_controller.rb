@@ -35,6 +35,10 @@ class ReservationsController < ApplicationController
 
   # Rails unescapes %encoded chars for us, so we need to re-encode them to ensure consistency.
   def encoded_reserved_path
-    URI.escape(params[:reserved_path])
+    URI.escape(reserved_path)
+  end
+
+  def reserved_path
+    params.fetch(:reserved_path)
   end
 end
