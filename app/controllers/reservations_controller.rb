@@ -39,6 +39,6 @@ class ReservationsController < ApplicationController
   end
 
   def reserved_path
-    params.fetch(:reserved_path)
+    "/#{params[:reserved_path]}"
   end
 end
